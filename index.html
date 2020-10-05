@@ -21,13 +21,30 @@
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-77.038456, 38.953404], // starting position [lng, lat]
-    zoom: 9 // starting zoom
+    zoom: 9, // starting zoom
+    maxZoom: 12
 });
+
+var popup = new mapboxgl.Popup({ closeOnClick: false })
+.setLngLat([-77.038456, 38.953404])
+.setHTML('<h1>Hello World!</h1>')
+.addTo(map);
 
 var marker = new mapboxgl.Marker()
 .setLngLat([-77.026088, 38.990666])
 .addTo(map);
+
+// Add geolocate control to the map.
+map.addControl(
+new mapboxgl.GeolocateControl({
+positionOptions: {
+enableHighAccuracy: true
+},
+trackUserLocation: true
+})
+);
   
+
 </script>
 
 </body>
