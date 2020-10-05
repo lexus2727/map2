@@ -14,8 +14,21 @@
 </style>
 </head>
 <body>
-    <div id='map' style='width: 400px; height: 300px;'></div>
+    <div id='map' style='width: 400px; height: 300px;'></div> 
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+    type="text/css"
+    />
+    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <!--<div id="map"></div> -->
+     
+
 <script>
+  
   mapboxgl.accessToken = 'pk.eyJ1IjoibGV4dXMyNDI0IiwiYSI6ImNrZnZwZWp2MDB2bmMydHA5MjdjYXJhaDkifQ.JrBIechItExi6zRgBvLAuA';
   var map = new mapboxgl.Map({
     container: 'map',
@@ -25,6 +38,7 @@
     maxZoom: 12
 });
 
+
 var popup = new mapboxgl.Popup({ closeOnClick: false })
 .setLngLat([-77.038456, 38.953404])
 .setHTML('<h1>Hello World!</h1>')
@@ -33,6 +47,17 @@ var popup = new mapboxgl.Popup({ closeOnClick: false })
 var marker = new mapboxgl.Marker()
 .setLngLat([-77.026088, 38.990666])
 .addTo(map);
+
+
+
+//Add geocoder to search for a location
+
+map.addControl(
+new MapboxGeocoder({
+accessToken: mapboxgl.accessToken,
+mapboxgl: mapboxgl
+})
+);
 
 // Add geolocate control to the map.
 map.addControl(
